@@ -19,7 +19,7 @@ Este proyecto combina agentes LLM con herramientas externas para lograr una inte
 A continuación, se detalla cómo se cumple cada uno de los objetivos planteados:
 
 - **Memoria a largo plazo persistente**  
-  En vez de usar `MemorySaver` se usa `SqliteSaver`, mediante una base SQLite (`sidekick_memory.db`) como backend de almacenamiento. Esto permite conservar el historial de conversación, retroalimentación y criterios incluso después de cerrar el programa, logrando una verdadera persistencia entre sesiones.
+  Se utiliza `AsyncSqliteSaver` (no `MemorySaver`) como backend de almacenamiento, mediante una base SQLite (`sidekick_memory.db`). Esto permite conservar el historial de conversación, retroalimentación y criterios incluso después de cerrar el programa, logrando una verdadera persistencia entre sesiones. La clave de la sesión (`thread_id`) es configurable y determina qué historial se conserva o reutiliza.
 
 - **Personalidad consistente**  
   En cada paso del grafo se incluye un `SystemMessage` con instrucciones claras sobre el rol del asistente, su comportamiento esperado y su forma de comunicarse, asegurando una respuesta coherente a lo largo del tiempo.
@@ -53,16 +53,18 @@ Este flujo iterativo, evaluado automáticamente y guiado por criterios explícit
 
 
 ## Documentación de la arquitectura de memoria (Entregable 2)
-Se implementa una memoria a largo plazo con `SqliteSaver` de `langgraph.checkpoint.sqlite`, conectando a una base SQLite (`sidekick_memory.db`). Esta arquitectura permite:
+Se implementa una memoria a largo plazo con `AsyncSqliteSaver` de `langgraph.checkpoint.sqlite.aio`, conectando a una base de datos SQLite (`sidekick_memory.db`). Esta arquitectura permite:
 
 - Guardar cada estado de la conversación, incluyendo mensajes del usuario, del asistente y del evaluador.
 - Recordar retroalimentación y criterios de éxito entre interacciones.
 - Continuar conversaciones previas sin perder contexto ni consistencia.
 - Garantizar persistencia del historial de interacción incluso si el sistema se reinicia.
 
+Cada sesión se identifica mediante un `thread_id`, configurable desde la interfaz de usuario.
+
 ---
 
-## `Sidekick` (Clase principal)
+# `Sidekick` (Clase principal)
 
 | Método                       | Descripción                                                                 |
 |-----------------------------|-----------------------------------------------------------------------------|
@@ -77,18 +79,18 @@ Se implementa una memoria a largo plazo con `SqliteSaver` de `langgraph.checkpoi
 
 ---
 
-## Herramientas Integradas
+# Herramientas Integradas
 
-- 🧪 `PythonREPLTool`: Ejecuta código Python.
-- 🌐 `PlayWrightBrowserToolkit`: Navegación web (headful mode).
-- 📁 `FileManagementToolkit`: Operaciones seguras sobre archivos (lectura/escritura).
-- 📚 `WikipediaQueryRun`: Consulta Wikipedia.
-- 🔍 `GoogleSerperAPIWrapper`: Realiza búsquedas web.
-- 📲 `Pushover`: Envía notificaciones push.
+- `PythonREPLTool`: Ejecuta código Python.
+- `PlayWrightBrowserToolkit`: Navegación web (headful mode).
+- `FileManagementToolkit`: Operaciones seguras sobre archivos (lectura/escritura).
+- `WikipediaQueryRun`: Consulta Wikipedia.
+- `GoogleSerperAPIWrapper`: Realiza búsquedas web.
+- `Pushover`: Envía notificaciones push.
 
 ---
 
-## Flujo de Trabajo
+# Flujo de Trabajo
 
 1. El usuario inicia una conversación con un criterio de éxito.
 2. El agente analiza el mensaje y responde.
@@ -101,7 +103,7 @@ Se implementa una memoria a largo plazo con `SqliteSaver` de `langgraph.checkpoi
 
 ---
 
-## Consideraciones
+# Consideraciones
 
 - Asegúrate de correr `playwright install` si ves errores al lanzar el navegador.
 - El sistema usa variables de entorno `.env` para servicios como Pushover.
@@ -110,7 +112,7 @@ Se implementa una memoria a largo plazo con `SqliteSaver` de `langgraph.checkpoi
 
 ---
 
-## Requisitos
+# Requisitos
 
 - Python 3.10+
 - LangGraph
@@ -122,6 +124,45 @@ Se implementa una memoria a largo plazo con `SqliteSaver` de `langgraph.checkpoi
 - dotenv
 - asyncio
 - aiosqlite
+
+---
+
+# ¿Cómo ejecutar la aplicación?
+
+## 1. Clona el repositorio y entra al proyecto
+
+```bash
+git clone git@github.com:OmarGarciaFlores/Chatbot-con-Memoria-y-Personalidad.git
+cd tu_repo
+```
+
+## 2. Crea entorno virtual e instala dependencias
+
+```bash
+uv venv .venv
+source .venv/bin/activate
+uv pip install -r requirements.txt
+```
+
+## 3. Instala navegadores de Playwright
+
+```bash
+playwright install
+```
+
+## 4. Crea archivo .env con tus claves 
+
+```env
+PUSHOVER_TOKEN=...
+PUSHOVER_USER=...
+OPENAI_API_KEY=...
+```
+
+## 5. Ejecuta la aplicación
+
+```bash
+uv run app.py
+```
 
 
 ## Ejemplos de conversaciones extendidas (Entregable 3)
