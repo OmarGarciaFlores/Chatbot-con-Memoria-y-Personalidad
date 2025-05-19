@@ -1,3 +1,6 @@
+# Link del video de presentación y demo
+
+https://www.loom.com/share/046fe288d2804bc8996892d9972a107b?sid=030773b3-5761-4238-9514-2e564a4b404b
 
 # Objetivo
 
@@ -169,20 +172,16 @@ uv run app.py
 
 ### Iteración con retroalimentación
 
-👤 Usuario: Hazme un resumen del artículo de Wikipedia sobre energía solar.
-🤖 Asistente: Aquí tienes un resumen general del artículo sobre energía solar...
-🧠 Evaluador: ❌ Faltan detalles clave sobre la conversión fotovoltaica.
-🤖 Asistente (segunda iteración): Corrijo el resumen incluyendo el proceso fotovoltaico, paneles y eficiencia energética...
-✅ Evaluador: ✅ Criterio cumplido.
+**Introductoria:**
+¿Qué es una red neuronal artificial?
+¿Para qué sirve una red neuronal?
 
-👤 Usuario: ¿Cuál es la tasa de inflación en México y gráfala?
-🤖 Asistente: Buscando tasa de inflación en Google...
-📈 Ejecutando código Python para generar gráfico...
-✅ Evaluador: ✅ Información precisa y visual.
+**Intermedia:**
+- ¿Cómo aprende una red neuronal?
+- ¿Qué es la backpropagation?
 
-👤 Usuario: Guarda esta información como archivo .txt
-🤖 Asistente: Archivo creado en sandbox/nota.txt
-✅ Evaluador: ✅ Acción completada correctamente.
+**Avanzada:**
+- Dame el bloque de código para una red neuronal sencilla
 
 ---
 

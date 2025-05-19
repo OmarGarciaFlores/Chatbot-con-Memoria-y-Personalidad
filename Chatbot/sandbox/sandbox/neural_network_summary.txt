@@ -1,0 +1,21 @@
+**Resumen sobre Redes Neuronales Artificiales**  
+
+Una red neuronal artificial es un modelo computacional inspirado en el cerebro humano, diseñado para reconocer patrones y resolver problemas complejos.  
+
+**Características**:  
+- Compuestas por capas de nodos o 'neuronas'.  
+- Cada conexión entre neuronas tiene un peso que se ajusta durante el entrenamiento.  
+
+**Aplicaciones**:  
+1. Clasificación (reconocimiento de imágenes, texto y voz).  
+2. Predicción (tendencias en finanzas o meteorología).  
+3. Reconocimiento de patrones (diagnóstico médico).  
+4. Procesamiento de lenguaje natural (traducción, chatbots).  
+5. Visión por computadora (reconocimiento facial, conducción autónoma).  
+6. Generación de contenido (música, arte, texto).  
+
+---  
+**Preguntas**:  
+1. Dibuja una red neuronal con 3 capas.  
+2. ¿Puedes mostrar una gráfica de la función sigmoide?  
+3. Simula una red neuronal pequeña que aprenda XOR.
